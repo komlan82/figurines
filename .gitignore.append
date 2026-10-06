@@ -1,0 +1,6 @@
+###> Uploads utilisateurs (garder les fichiers d'exemple et l'avatar par défaut) ###
+/public/uploads/figurines/*
+!/public/uploads/figurines/fig-*.svg
+!/public/uploads/figurines/.gitkeep
+/public/uploads/users/*
+!/public/uploads/users/default-avatar.svg

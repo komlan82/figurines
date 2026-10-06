@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ figurine.title }} – Figurine Collector{% endblock %}
+
+{% block body %}
+    <div class="card shadow-sm border-0">
+        <div class="row g-0">
+            <div class="col-md-7 text-center p-3">
+                {# Taille réelle, mais jamais plus de 600px de large #}
+                <img src="{{ vich_uploader_asset(figurine, 'imageFile') }}" alt="{{ figurine.title }}"
+                     class="img-fluid rounded" style="max-width: 600px; width: 100%;">
+            </div>
+            <div class="col-md-5">
+                <div class="card-body p-4">
+                    <h1 class="h3">{{ figurine.title }}</h1>
+                    <p class="fs-4 fw-bold text-success">{{ figurine.price|number_format(2, ',', ' ') }} €</p>
+
+                    <p>{{ figurine.description ? figurine.description|nl2br : 'Aucune description.' }}</p>
+
+                    <ul class="list-unstyled text-muted small">
+                        <li>Auteur : <strong>{{ figurine.user.firstname }} {{ figurine.user.lastname }}</strong></li>
+                        <li>Créée le {{ figurine.createdAt|date('d/m/Y à H:i') }}</li>
+                        <li>Modifiée le {{ figurine.updatedAt|date('d/m/Y à H:i') }}</li>
+                    </ul>
+
+                    <div class="d-flex flex-wrap gap-2 mt-4">
+                        <a href="{{ path('app_figurine_index') }}" class="btn btn-outline-secondary">← Retour</a>
+
+                        {# Boutons visibles uniquement pour le propriétaire #}
+                        {% if app.user and app.user == figurine.user %}
+                            <a href="{{ path('app_figurine_edit', {id: figurine.id}) }}" class="btn btn-warning">Éditer</a>
+
+                            <form method="post" action="{{ path('app_figurine_delete', {id: figurine.id}) }}"
+                                  onsubmit="return confirm('Voulez-vous vraiment supprimer cette figurine ? Cette action est définitive.');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ figurine.id) }}">
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

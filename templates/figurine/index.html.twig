@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Figurines – Figurine Collector{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2 mb-0">Les figurines</h1>
+        <a href="{{ path('app_figurine_create') }}" class="btn btn-primary">Poster une figurine</a>
+    </div>
+
+    {% if figurines is empty %}
+        <div class="alert alert-secondary">Aucune figurine pour le moment. Soyez le premier à en poster une !</div>
+    {% endif %}
+
+    {# Affichage en grille : colonnes de 250px #}
+    <div class="figurine-grid">
+        {% for figurine in figurines %}
+            <article class="card figurine-card shadow-sm">
+                <a href="{{ path('app_figurine_show', {id: figurine.id}) }}">
+                    <img src="{{ vich_uploader_asset(figurine, 'imageFile') }}"
+                         alt="{{ figurine.title }}" class="figurine-img">
+                </a>
+                <div class="card-body">
+                    <h2 class="h6 card-title mb-1">
+                        <a href="{{ path('app_figurine_show', {id: figurine.id}) }}" class="text-decoration-none text-dark"
+                           title="{{ figurine.title }}">
+                            {{ figurine.title|excerpt(30) }}
+                        </a>
+                    </h2>
+
+                    {# Prix en euros : 129,90 € #}
+                    <p class="fw-bold text-success mb-2">{{ figurine.price|number_format(2, ',', ' ') }} €</p>
+
+                    <p class="card-text small text-muted mb-0">
+                        Publié {{ figurine.createdAt|time_ago }}<br>
+                        par {{ figurine.user.firstname }} {{ figurine.user.lastname }}
+                    </p>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil – Figurine Collector{% endblock %}
+
+{% block body %}
+    <section class="hero text-white text-center rounded-4 p-5 mb-5 shadow">
+        <h1 class="display-4 fw-bold">Bienvenue sur Figurine Collector</h1>
+        <p class="lead mx-auto" style="max-width: 640px;">
+            La communauté des passionnés de figurines : montrez votre collection,
+            découvrez des pièces rares et partagez vos coups de cœur.
+        </p>
+        <div class="d-flex gap-2 justify-content-center mt-4">
+            {% if app.user %}
+                <a href="{{ path('app_figurine_index') }}" class="btn btn-light btn-lg">Voir les figurines</a>
+                <a href="{{ path('app_figurine_create') }}" class="btn btn-outline-light btn-lg">Poster une figurine</a>
+            {% else %}
+                <a href="{{ path('app_register') }}" class="btn btn-light btn-lg">Rejoindre la communauté</a>
+                <a href="{{ path('app_login') }}" class="btn btn-outline-light btn-lg">Se connecter</a>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="row g-4 text-center">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="feature-icon mb-3">📸</div>
+                    <h2 class="h4">Partagez</h2>
+                    <p class="text-muted mb-0">Postez les photos de vos figurines avec leur titre, leur description et leur prix.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="feature-icon mb-3">🔎</div>
+                    <h2 class="h4">Découvrez</h2>
+                    <p class="text-muted mb-0">Parcourez la galerie de la communauté et trouvez votre prochaine pièce de collection.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="feature-icon mb-3">🏆</div>
+                    <h2 class="h4">Collectionnez</h2>
+                    <p class="text-muted mb-0">Gérez vos publications et gardez une trace de toute votre collection.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier {{ figurine.title }} – Figurine Collector{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h1 class="h3 mb-3">Modifier la figurine</h1>
+
+                    <p class="text-muted small mb-1">Image actuelle :</p>
+                    <img src="{{ vich_uploader_asset(figurine, 'imageFile') }}" alt="{{ figurine.title }}"
+                         class="img-thumbnail mb-3" style="max-width: 200px;">
+                    <p class="text-muted small">Laissez le champ image vide pour la conserver.</p>
+
+                    {{ include('figurine/_form.html.twig', {button_label: 'Mettre à jour'}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
